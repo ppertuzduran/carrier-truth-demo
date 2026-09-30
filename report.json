@@ -1,0 +1,1971 @@
+[
+  {
+    "case_id": "C001",
+    "status": "BLOCKED",
+    "document_type": "ISSUED_ILLUSTRATION",
+    "document_file": "C001.pdf",
+    "document_sha256": "343bf873948afcb8bf9e0000243c914dd8c07f276088f255b7efb01c7b964fa3",
+    "fields": [
+      {
+        "field": "client_name",
+        "status": "VERIFIED",
+        "verified_value": "Ana Rivera",
+        "document_value": "Ana Rivera",
+        "requested_value": "Ana Rivera",
+        "ui_value": null,
+        "derived_value": null,
+        "detail": null,
+        "reason": "Document applicant matches the requested client (similarity 1.00).",
+        "evidence": [
+          {
+            "source": "document",
+            "locator": "C001.pdf#page=1",
+            "raw_text": "Applicant: Ana Rivera",
+            "page": 1,
+            "bbox": [
+              78.0,
+              126.07,
+              174.15,
+              136.07
+            ],
+            "doc_sha256": "343bf873948afcb8bf9e0000243c914dd8c07f276088f255b7efb01c7b964fa3",
+            "method": "label-anchor-v1",
+            "role": null
+          },
+          {
+            "source": "quote_request",
+            "locator": "quote_requests.json[C001].requested_name",
+            "raw_text": "Ana Rivera",
+            "page": null,
+            "bbox": null,
+            "doc_sha256": null,
+            "method": "json-field",
+            "role": null
+          }
+        ],
+        "notes": [
+          {
+            "tone": "ok",
+            "title": "Verified from the carrier document",
+            "text": "Page 1: \u201cApplicant: Ana Rivera\u201d. Source of truth for the client.",
+            "targets": [
+              0
+            ]
+          },
+          {
+            "tone": "ok",
+            "title": "Matches the API payload",
+            "text": "requested_name: Ana Rivera agrees with the carrier document.",
+            "targets": [
+              1
+            ]
+          }
+        ]
+      },
+      {
+        "field": "carrier",
+        "status": "VERIFIED",
+        "verified_value": "Northstar Life",
+        "document_value": "Northstar Life",
+        "requested_value": null,
+        "ui_value": null,
+        "derived_value": null,
+        "detail": null,
+        "reason": "Taken from the carrier document (the quote request has no carrier to cross-check).",
+        "evidence": [
+          {
+            "source": "document",
+            "locator": "C001.pdf#page=1",
+            "raw_text": "Carrier: Northstar Life",
+            "page": 1,
+            "bbox": [
+              78.0,
+              144.07,
+              174.13,
+              154.07
+            ],
+            "doc_sha256": "343bf873948afcb8bf9e0000243c914dd8c07f276088f255b7efb01c7b964fa3",
+            "method": "label-anchor-v1",
+            "role": null
+          }
+        ],
+        "notes": [
+          {
+            "tone": "ok",
+            "title": "Verified from the carrier document",
+            "text": "Page 1: \u201cCarrier: Northstar Life\u201d. Source of truth for the carrier.",
+            "targets": [
+              0
+            ]
+          },
+          {
+            "tone": "info",
+            "title": "Single source",
+            "text": "The quote request has no carrier field, so it can only come from the carrier document.",
+            "targets": [
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "field": "coverage",
+        "status": "CONTRADICTED",
+        "verified_value": null,
+        "document_value": "$50.00",
+        "requested_value": "$450,000.00",
+        "ui_value": null,
+        "derived_value": null,
+        "detail": null,
+        "reason": "Carrier document says $50.00 but $450,000.00 was requested. Coverage is a material field: refusing to verify.",
+        "evidence": [
+          {
+            "source": "document",
+            "locator": "C001.pdf#page=1",
+            "raw_text": "Face Amount: $50.00",
+            "page": 1,
+            "bbox": [
+              78.0,
+              162.07,
+              173.61,
+              172.07
+            ],
+            "doc_sha256": "343bf873948afcb8bf9e0000243c914dd8c07f276088f255b7efb01c7b964fa3",
+            "method": "label-anchor-v1",
+            "role": null
+          },
+          {
+            "source": "quote_request",
+            "locator": "quote_requests.json[C001].requested_coverage",
+            "raw_text": "450000",
+            "page": null,
+            "bbox": null,
+            "doc_sha256": null,
+            "method": "json-field",
+            "role": null
+          }
+        ],
+        "notes": [
+          {
+            "tone": "truth",
+            "title": "Carrier document: source of truth",
+            "text": "Page 1: \u201cFace Amount: $50.00\u201d.",
+            "targets": [
+              0
+            ]
+          },
+          {
+            "tone": "bad",
+            "title": "Claim that contradicts the document",
+            "text": "requested_coverage: 450000. A request or UI value never overrides the carrier document.",
+            "targets": [
+              1
+            ]
+          },
+          {
+            "tone": "bad",
+            "title": "Conflict: $50.00 \u2260 $450,000.00",
+            "text": "Material mismatch on coverage: refusing to present it as verified.",
+            "targets": [
+              0,
+              1
+            ]
+          }
+        ]
+      },
+      {
+        "field": "premium",
+        "status": "VERIFIED",
+        "verified_value": "$62.00 MONTHLY",
+        "document_value": "$62.00 MONTHLY",
+        "requested_value": null,
+        "ui_value": "$62.00",
+        "derived_value": null,
+        "detail": null,
+        "reason": "Carrier document base premium matches the UI premium.",
+        "evidence": [
+          {
+            "source": "document",
+            "locator": "C001.pdf#page=1",
+            "raw_text": "Premium: $62.00 MONTHLY",
+            "page": 1,
+            "bbox": [
+              78.0,
+              180.07,
+              205.81,
+              190.07
+            ],
+            "doc_sha256": "343bf873948afcb8bf9e0000243c914dd8c07f276088f255b7efb01c7b964fa3",
+            "method": "label-anchor-v1",
+            "role": "base"
+          },
+          {
+            "source": "quote_request",
+            "locator": "quote_requests.json[C001].ui_premium",
+            "raw_text": "62.0",
+            "page": null,
+            "bbox": null,
+            "doc_sha256": null,
+            "method": "json-field",
+            "role": null
+          }
+        ],
+        "notes": [
+          {
+            "tone": "ok",
+            "title": "Verified from the carrier document",
+            "text": "Page 1: \u201cPremium: $62.00 MONTHLY\u201d. Source of truth for the premium.",
+            "targets": [
+              0
+            ]
+          },
+          {
+            "tone": "ok",
+            "title": "Matches the API payload",
+            "text": "ui_premium: 62.0 agrees with the carrier document.",
+            "targets": [
+              1
+            ]
+          }
+        ]
+      }
+    ],
+    "checks": [
+      {
+        "layer": "L1",
+        "name": "Source authority",
+        "tool": "Deterministic document classifier: required positive markers; a disclaimer beats any title",
+        "status": "pass",
+        "detail": "Title \"Carrier Illustration\" identifies an issued carrier illustration"
+      },
+      {
+        "layer": "L2",
+        "name": "Extraction + provenance",
+        "tool": "pdfplumber text lines \u00b7 label-anchored regex \u00b7 every candidate kept with page, bbox, sha256",
+        "status": "pass",
+        "detail": "4/4 fields located \u00b7 4 candidate lines"
+      },
+      {
+        "layer": "L3",
+        "name": "Semantic roles",
+        "tool": "Label \u2192 role taxonomy (base / optional rider / unknown); unknown is never guessed",
+        "status": "pass",
+        "detail": "One premium line, role: base"
+      },
+      {
+        "layer": "L4",
+        "name": "Normalization",
+        "tool": "Decimal money \u00b7 payment-mode conversion (labeled as derived) \u00b7 accent/case-insensitive names",
+        "status": "pass",
+        "detail": "No conversion needed"
+      },
+      {
+        "layer": "L5",
+        "name": "Cross-source reconciliation",
+        "tool": "Authority order doc > request > UI \u00b7 $0.01 money tolerance \u00b7 name similarity \u2265 0.92 \u00b7 placeholder list",
+        "status": "fail",
+        "detail": "Contradicted: coverage"
+      },
+      {
+        "layer": "L6",
+        "name": "Plausibility",
+        "tool": "Domain bounds: face \u2265 $10,000.00 \u00b7 annual premium \u2264 10% of face",
+        "status": "fail",
+        "detail": "face amount $50.00 is below the $10,000.00 minimum for a life policy; annual premium $744.00 is 1488% of the face amount (max 10%)"
+      },
+      {
+        "layer": "L7",
+        "name": "LLM adjudication",
+        "tool": "Claude structured output + verbatim-quote grounding check; only for what L2\u2013L3 can't resolve",
+        "status": "skip",
+        "detail": "Not needed: every label and role was recognized deterministically (zero LLM cost)"
+      }
+    ],
+    "next_action": "Re-run the illustration: coverage on the carrier document ($50.00) differs from the quote ($450,000.00).",
+    "client_safe_summary": null,
+    "rules_version": "rules-2026-09-30.2",
+    "extractor_version": "label-anchor-v1",
+    "request": {
+      "case_id": "C001",
+      "requested_name": "Ana Rivera",
+      "requested_coverage": 450000,
+      "ui_premium": 62.0
+    },
+    "document_pages": [
+      {
+        "page": 1,
+        "box": [
+          42.0,
+          45.73,
+          420.02,
+          226.07
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "C002",
+    "status": "VERIFIED",
+    "document_type": "ISSUED_ILLUSTRATION",
+    "document_file": "C002.pdf",
+    "document_sha256": "2d21959448a4624c3245bb33e482631f8a075a841524cd4a47789017134f3a51",
+    "fields": [
+      {
+        "field": "client_name",
+        "status": "VERIFIED",
+        "verified_value": "Marco Diaz",
+        "document_value": "Marco Diaz",
+        "requested_value": "Marco Diaz",
+        "ui_value": null,
+        "derived_value": null,
+        "detail": null,
+        "reason": "Document applicant matches the requested client (similarity 1.00).",
+        "evidence": [
+          {
+            "source": "document",
+            "locator": "C002.pdf#page=1",
+            "raw_text": "Applicant: Marco Diaz",
+            "page": 1,
+            "bbox": [
+              78.0,
+              126.07,
+              175.25,
+              136.07
+            ],
+            "doc_sha256": "2d21959448a4624c3245bb33e482631f8a075a841524cd4a47789017134f3a51",
+            "method": "label-anchor-v1",
+            "role": null
+          },
+          {
+            "source": "quote_request",
+            "locator": "quote_requests.json[C002].requested_name",
+            "raw_text": "Marco Diaz",
+            "page": null,
+            "bbox": null,
+            "doc_sha256": null,
+            "method": "json-field",
+            "role": null
+          }
+        ],
+        "notes": [
+          {
+            "tone": "ok",
+            "title": "Verified from the carrier document",
+            "text": "Page 1: \u201cApplicant: Marco Diaz\u201d. Source of truth for the client.",
+            "targets": [
+              0
+            ]
+          },
+          {
+            "tone": "ok",
+            "title": "Matches the API payload",
+            "text": "requested_name: Marco Diaz agrees with the carrier document.",
+            "targets": [
+              1
+            ]
+          }
+        ]
+      },
+      {
+        "field": "carrier",
+        "status": "VERIFIED",
+        "verified_value": "Heritage Mutual",
+        "document_value": "Heritage Mutual",
+        "requested_value": null,
+        "ui_value": null,
+        "derived_value": null,
+        "detail": null,
+        "reason": "Taken from the carrier document (the quote request has no carrier to cross-check).",
+        "evidence": [
+          {
+            "source": "document",
+            "locator": "C002.pdf#page=1",
+            "raw_text": "Carrier: Heritage Mutual",
+            "page": 1,
+            "bbox": [
+              78.0,
+              144.07,
+              184.69,
+              154.07
+            ],
+            "doc_sha256": "2d21959448a4624c3245bb33e482631f8a075a841524cd4a47789017134f3a51",
+            "method": "label-anchor-v1",
+            "role": null
+          }
+        ],
+        "notes": [
+          {
+            "tone": "ok",
+            "title": "Verified from the carrier document",
+            "text": "Page 1: \u201cCarrier: Heritage Mutual\u201d. Source of truth for the carrier.",
+            "targets": [
+              0
+            ]
+          },
+          {
+            "tone": "info",
+            "title": "Single source",
+            "text": "The quote request has no carrier field, so it can only come from the carrier document.",
+            "targets": [
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "field": "coverage",
+        "status": "VERIFIED",
+        "verified_value": "$250,000.00",
+        "document_value": "$250,000.00",
+        "requested_value": "$250,000.00",
+        "ui_value": null,
+        "derived_value": null,
+        "detail": null,
+        "reason": "Carrier document face amount matches the requested coverage.",
+        "evidence": [
+          {
+            "source": "document",
+            "locator": "C002.pdf#page=1",
+            "raw_text": "Face Amount: $250,000.00",
+            "page": 1,
+            "bbox": [
+              78.0,
+              162.07,
+              198.63,
+              172.07
+            ],
+            "doc_sha256": "2d21959448a4624c3245bb33e482631f8a075a841524cd4a47789017134f3a51",
+            "method": "label-anchor-v1",
+            "role": null
+          },
+          {
+            "source": "quote_request",
+            "locator": "quote_requests.json[C002].requested_coverage",
+            "raw_text": "250000",
+            "page": null,
+            "bbox": null,
+            "doc_sha256": null,
+            "method": "json-field",
+            "role": null
+          }
+        ],
+        "notes": [
+          {
+            "tone": "ok",
+            "title": "Verified from the carrier document",
+            "text": "Page 1: \u201cFace Amount: $250,000.00\u201d. Source of truth for the coverage.",
+            "targets": [
+              0
+            ]
+          },
+          {
+            "tone": "ok",
+            "title": "Matches the API payload",
+            "text": "requested_coverage: 250000 agrees with the carrier document.",
+            "targets": [
+              1
+            ]
+          }
+        ]
+      },
+      {
+        "field": "premium",
+        "status": "VERIFIED",
+        "verified_value": "$47.50 MONTHLY",
+        "document_value": "$47.50 MONTHLY",
+        "requested_value": null,
+        "ui_value": "$47.50",
+        "derived_value": null,
+        "detail": null,
+        "reason": "Carrier document base premium matches the UI premium.",
+        "evidence": [
+          {
+            "source": "document",
+            "locator": "C002.pdf#page=1",
+            "raw_text": "Premium: $47.50 MONTHLY",
+            "page": 1,
+            "bbox": [
+              78.0,
+              180.07,
+              205.81,
+              190.07
+            ],
+            "doc_sha256": "2d21959448a4624c3245bb33e482631f8a075a841524cd4a47789017134f3a51",
+            "method": "label-anchor-v1",
+            "role": "base"
+          },
+          {
+            "source": "quote_request",
+            "locator": "quote_requests.json[C002].ui_premium",
+            "raw_text": "47.5",
+            "page": null,
+            "bbox": null,
+            "doc_sha256": null,
+            "method": "json-field",
+            "role": null
+          }
+        ],
+        "notes": [
+          {
+            "tone": "ok",
+            "title": "Verified from the carrier document",
+            "text": "Page 1: \u201cPremium: $47.50 MONTHLY\u201d. Source of truth for the premium.",
+            "targets": [
+              0
+            ]
+          },
+          {
+            "tone": "ok",
+            "title": "Matches the API payload",
+            "text": "ui_premium: 47.5 agrees with the carrier document.",
+            "targets": [
+              1
+            ]
+          }
+        ]
+      }
+    ],
+    "checks": [
+      {
+        "layer": "L1",
+        "name": "Source authority",
+        "tool": "Deterministic document classifier: required positive markers; a disclaimer beats any title",
+        "status": "pass",
+        "detail": "Title \"Carrier Illustration\" identifies an issued carrier illustration"
+      },
+      {
+        "layer": "L2",
+        "name": "Extraction + provenance",
+        "tool": "pdfplumber text lines \u00b7 label-anchored regex \u00b7 every candidate kept with page, bbox, sha256",
+        "status": "pass",
+        "detail": "4/4 fields located \u00b7 4 candidate lines"
+      },
+      {
+        "layer": "L3",
+        "name": "Semantic roles",
+        "tool": "Label \u2192 role taxonomy (base / optional rider / unknown); unknown is never guessed",
+        "status": "pass",
+        "detail": "One premium line, role: base"
+      },
+      {
+        "layer": "L4",
+        "name": "Normalization",
+        "tool": "Decimal money \u00b7 payment-mode conversion (labeled as derived) \u00b7 accent/case-insensitive names",
+        "status": "pass",
+        "detail": "No conversion needed"
+      },
+      {
+        "layer": "L5",
+        "name": "Cross-source reconciliation",
+        "tool": "Authority order doc > request > UI \u00b7 $0.01 money tolerance \u00b7 name similarity \u2265 0.92 \u00b7 placeholder list",
+        "status": "pass",
+        "detail": "All claims agree with the carrier document"
+      },
+      {
+        "layer": "L6",
+        "name": "Plausibility",
+        "tool": "Domain bounds: face \u2265 $10,000.00 \u00b7 annual premium \u2264 10% of face",
+        "status": "pass",
+        "detail": "Within bounds"
+      },
+      {
+        "layer": "L7",
+        "name": "LLM adjudication",
+        "tool": "Claude structured output + verbatim-quote grounding check; only for what L2\u2013L3 can't resolve",
+        "status": "skip",
+        "detail": "Not needed: every label and role was recognized deterministically (zero LLM cost)"
+      }
+    ],
+    "next_action": "Safe to present to the client and to use for the application.",
+    "client_safe_summary": {
+      "client_name": "Marco Diaz",
+      "carrier": "Heritage Mutual",
+      "coverage": "$250,000.00",
+      "premium": "$47.50 MONTHLY",
+      "source_document_sha256": "2d21959448a4624c3245bb33e482631f8a075a841524cd4a47789017134f3a51"
+    },
+    "rules_version": "rules-2026-09-30.2",
+    "extractor_version": "label-anchor-v1",
+    "request": {
+      "case_id": "C002",
+      "requested_name": "Marco Diaz",
+      "requested_coverage": 250000,
+      "ui_premium": 47.5
+    },
+    "document_pages": [
+      {
+        "page": 1,
+        "box": [
+          42.0,
+          45.73,
+          420.02,
+          226.07
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "C003",
+    "status": "NEEDS_REVIEW",
+    "document_type": "ISSUED_ILLUSTRATION",
+    "document_file": "C003.pdf",
+    "document_sha256": "3d51507b4c51f9ae1217b43a517ffa200f0118a6c38abc53969f271635a0110b",
+    "fields": [
+      {
+        "field": "client_name",
+        "status": "PLACEHOLDER",
+        "verified_value": null,
+        "document_value": "Client",
+        "requested_value": "Juan Perez",
+        "ui_value": null,
+        "derived_value": null,
+        "detail": null,
+        "reason": "Document names the applicant \"Client\", a placeholder. Identity cannot be tied to this document.",
+        "evidence": [
+          {
+            "source": "document",
+            "locator": "C003.pdf#page=1",
+            "raw_text": "Applicant: Client",
+            "page": 1,
+            "bbox": [
+              78.0,
+              126.07,
+              150.25,
+              136.07
+            ],
+            "doc_sha256": "3d51507b4c51f9ae1217b43a517ffa200f0118a6c38abc53969f271635a0110b",
+            "method": "label-anchor-v1",
+            "role": null
+          },
+          {
+            "source": "quote_request",
+            "locator": "quote_requests.json[C003].requested_name",
+            "raw_text": "Juan Perez",
+            "page": null,
+            "bbox": null,
+            "doc_sha256": null,
+            "method": "json-field",
+            "role": null
+          }
+        ],
+        "notes": [
+          {
+            "tone": "bad",
+            "title": "Placeholder instead of a name",
+            "text": "\u201cApplicant: Client\u201d: a template default, not the insured's legal name.",
+            "targets": [
+              0
+            ]
+          },
+          {
+            "tone": "info",
+            "title": "Requested client",
+            "text": "requested_name: Juan Perez cannot be tied to this document.",
+            "targets": [
+              1
+            ]
+          },
+          {
+            "tone": "warn",
+            "title": "Identity not verified",
+            "text": "Nothing proves this illustration was issued for this client. Regenerate it with the legal name.",
+            "targets": [
+              0,
+              1
+            ]
+          }
+        ]
+      },
+      {
+        "field": "carrier",
+        "status": "VERIFIED",
+        "verified_value": "Summit Assurance",
+        "document_value": "Summit Assurance",
+        "requested_value": null,
+        "ui_value": null,
+        "derived_value": null,
+        "detail": null,
+        "reason": "Taken from the carrier document (the quote request has no carrier to cross-check).",
+        "evidence": [
+          {
+            "source": "document",
+            "locator": "C003.pdf#page=1",
+            "raw_text": "Carrier: Summit Assurance",
+            "page": 1,
+            "bbox": [
+              78.0,
+              144.07,
+              198.02,
+              154.07
+            ],
+            "doc_sha256": "3d51507b4c51f9ae1217b43a517ffa200f0118a6c38abc53969f271635a0110b",
+            "method": "label-anchor-v1",
+            "role": null
+          }
+        ],
+        "notes": [
+          {
+            "tone": "ok",
+            "title": "Verified from the carrier document",
+            "text": "Page 1: \u201cCarrier: Summit Assurance\u201d. Source of truth for the carrier.",
+            "targets": [
+              0
+            ]
+          },
+          {
+            "tone": "info",
+            "title": "Single source",
+            "text": "The quote request has no carrier field, so it can only come from the carrier document.",
+            "targets": [
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "field": "coverage",
+        "status": "VERIFIED",
+        "verified_value": "$100,000.00",
+        "document_value": "$100,000.00",
+        "requested_value": "$100,000.00",
+        "ui_value": null,
+        "derived_value": null,
+        "detail": null,
+        "reason": "Carrier document face amount matches the requested coverage.",
+        "evidence": [
+          {
+            "source": "document",
+            "locator": "C003.pdf#page=1",
+            "raw_text": "Face Amount: $100,000.00",
+            "page": 1,
+            "bbox": [
+              78.0,
+              162.07,
+              198.63,
+              172.07
+            ],
+            "doc_sha256": "3d51507b4c51f9ae1217b43a517ffa200f0118a6c38abc53969f271635a0110b",
+            "method": "label-anchor-v1",
+            "role": null
+          },
+          {
+            "source": "quote_request",
+            "locator": "quote_requests.json[C003].requested_coverage",
+            "raw_text": "100000",
+            "page": null,
+            "bbox": null,
+            "doc_sha256": null,
+            "method": "json-field",
+            "role": null
+          }
+        ],
+        "notes": [
+          {
+            "tone": "ok",
+            "title": "Verified from the carrier document",
+            "text": "Page 1: \u201cFace Amount: $100,000.00\u201d. Source of truth for the coverage.",
+            "targets": [
+              0
+            ]
+          },
+          {
+            "tone": "ok",
+            "title": "Matches the API payload",
+            "text": "requested_coverage: 100000 agrees with the carrier document.",
+            "targets": [
+              1
+            ]
+          }
+        ]
+      },
+      {
+        "field": "premium",
+        "status": "VERIFIED_NORMALIZED",
+        "verified_value": "$720.00 ANNUAL",
+        "document_value": "$720.00 ANNUAL",
+        "requested_value": null,
+        "ui_value": "$60.00",
+        "derived_value": "$60.00/mo (derived: $720.00 ANNUAL \u00f7 12)",
+        "detail": "carrier quotes annual",
+        "reason": "Carrier quotes $720.00 ANNUAL; the UI shows $60.00, which equals it only as a derived monthly average. The carrier figure is presented; the monthly value is labeled as derived (a real monthly mode must be re-quoted: modal factors usually make it cost more).",
+        "evidence": [
+          {
+            "source": "document",
+            "locator": "C003.pdf#page=1",
+            "raw_text": "Premium: $720.00 ANNUAL",
+            "page": 1,
+            "bbox": [
+              78.0,
+              180.07,
+              203.04,
+              190.07
+            ],
+            "doc_sha256": "3d51507b4c51f9ae1217b43a517ffa200f0118a6c38abc53969f271635a0110b",
+            "method": "label-anchor-v1",
+            "role": "base"
+          },
+          {
+            "source": "quote_request",
+            "locator": "quote_requests.json[C003].ui_premium",
+            "raw_text": "60.0",
+            "page": null,
+            "bbox": null,
+            "doc_sha256": null,
+            "method": "json-field",
+            "role": null
+          }
+        ],
+        "notes": [
+          {
+            "tone": "ok",
+            "title": "Verified from the carrier document",
+            "text": "\u201cPremium: $720.00 ANNUAL\u201d. The original carrier figure is what gets presented.",
+            "targets": [
+              0
+            ]
+          },
+          {
+            "tone": "warn",
+            "title": "Derived value, labeled as derived",
+            "text": "ui_premium: 60.0 equals the carrier figure only after conversion: $60.00/mo (derived: $720.00 ANNUAL \u00f7 12). It is shown as derived, never as the carrier's quoted monthly premium.",
+            "targets": [
+              1,
+              0
+            ]
+          }
+        ]
+      }
+    ],
+    "checks": [
+      {
+        "layer": "L1",
+        "name": "Source authority",
+        "tool": "Deterministic document classifier: required positive markers; a disclaimer beats any title",
+        "status": "pass",
+        "detail": "Title \"Carrier Illustration\" identifies an issued carrier illustration"
+      },
+      {
+        "layer": "L2",
+        "name": "Extraction + provenance",
+        "tool": "pdfplumber text lines \u00b7 label-anchored regex \u00b7 every candidate kept with page, bbox, sha256",
+        "status": "pass",
+        "detail": "4/4 fields located \u00b7 4 candidate lines"
+      },
+      {
+        "layer": "L3",
+        "name": "Semantic roles",
+        "tool": "Label \u2192 role taxonomy (base / optional rider / unknown); unknown is never guessed",
+        "status": "pass",
+        "detail": "One premium line, role: base"
+      },
+      {
+        "layer": "L4",
+        "name": "Normalization",
+        "tool": "Decimal money \u00b7 payment-mode conversion (labeled as derived) \u00b7 accent/case-insensitive names",
+        "status": "warn",
+        "detail": "premium: $60.00/mo (derived: $720.00 ANNUAL \u00f7 12)"
+      },
+      {
+        "layer": "L5",
+        "name": "Cross-source reconciliation",
+        "tool": "Authority order doc > request > UI \u00b7 $0.01 money tolerance \u00b7 name similarity \u2265 0.92 \u00b7 placeholder list",
+        "status": "warn",
+        "detail": "Unresolved: client_name (placeholder)"
+      },
+      {
+        "layer": "L6",
+        "name": "Plausibility",
+        "tool": "Domain bounds: face \u2265 $10,000.00 \u00b7 annual premium \u2264 10% of face",
+        "status": "pass",
+        "detail": "Within bounds"
+      },
+      {
+        "layer": "L7",
+        "name": "LLM adjudication",
+        "tool": "Claude structured output + verbatim-quote grounding check; only for what L2\u2013L3 can't resolve",
+        "status": "skip",
+        "detail": "Not needed: every label and role was recognized deterministically (zero LLM cost)"
+      }
+    ],
+    "next_action": "Regenerate the illustration with the client's legal name (document shows \"Client\").",
+    "client_safe_summary": null,
+    "rules_version": "rules-2026-09-30.2",
+    "extractor_version": "label-anchor-v1",
+    "request": {
+      "case_id": "C003",
+      "requested_name": "Juan Perez",
+      "requested_coverage": 100000,
+      "ui_premium": 60.0
+    },
+    "document_pages": [
+      {
+        "page": 1,
+        "box": [
+          42.0,
+          45.73,
+          420.02,
+          226.07
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "C004",
+    "status": "VERIFIED",
+    "document_type": "ISSUED_ILLUSTRATION",
+    "document_file": "C004.pdf",
+    "document_sha256": "f724f5fbbb50831d7f68ef0bb9d35aa1764eb50f3767ed03f7aaaa890ed0a738",
+    "fields": [
+      {
+        "field": "client_name",
+        "status": "VERIFIED",
+        "verified_value": "Sara Lopez",
+        "document_value": "Sara Lopez",
+        "requested_value": "Sara Lopez",
+        "ui_value": null,
+        "derived_value": null,
+        "detail": null,
+        "reason": "Document applicant matches the requested client (similarity 1.00).",
+        "evidence": [
+          {
+            "source": "document",
+            "locator": "C004.pdf#page=1",
+            "raw_text": "Applicant: Sara Lopez",
+            "page": 1,
+            "bbox": [
+              78.0,
+              126.07,
+              175.83,
+              136.07
+            ],
+            "doc_sha256": "f724f5fbbb50831d7f68ef0bb9d35aa1764eb50f3767ed03f7aaaa890ed0a738",
+            "method": "label-anchor-v1",
+            "role": null
+          },
+          {
+            "source": "quote_request",
+            "locator": "quote_requests.json[C004].requested_name",
+            "raw_text": "Sara Lopez",
+            "page": null,
+            "bbox": null,
+            "doc_sha256": null,
+            "method": "json-field",
+            "role": null
+          }
+        ],
+        "notes": [
+          {
+            "tone": "ok",
+            "title": "Verified from the carrier document",
+            "text": "Page 1: \u201cApplicant: Sara Lopez\u201d. Source of truth for the client.",
+            "targets": [
+              0
+            ]
+          },
+          {
+            "tone": "ok",
+            "title": "Matches the API payload",
+            "text": "requested_name: Sara Lopez agrees with the carrier document.",
+            "targets": [
+              1
+            ]
+          }
+        ]
+      },
+      {
+        "field": "carrier",
+        "status": "VERIFIED",
+        "verified_value": "Northstar Life",
+        "document_value": "Northstar Life",
+        "requested_value": null,
+        "ui_value": null,
+        "derived_value": null,
+        "detail": null,
+        "reason": "Taken from the carrier document (the quote request has no carrier to cross-check).",
+        "evidence": [
+          {
+            "source": "document",
+            "locator": "C004.pdf#page=1",
+            "raw_text": "Carrier: Northstar Life",
+            "page": 1,
+            "bbox": [
+              78.0,
+              144.07,
+              174.13,
+              154.07
+            ],
+            "doc_sha256": "f724f5fbbb50831d7f68ef0bb9d35aa1764eb50f3767ed03f7aaaa890ed0a738",
+            "method": "label-anchor-v1",
+            "role": null
+          }
+        ],
+        "notes": [
+          {
+            "tone": "ok",
+            "title": "Verified from the carrier document",
+            "text": "Page 1: \u201cCarrier: Northstar Life\u201d. Source of truth for the carrier.",
+            "targets": [
+              0
+            ]
+          },
+          {
+            "tone": "info",
+            "title": "Single source",
+            "text": "The quote request has no carrier field, so it can only come from the carrier document.",
+            "targets": [
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "field": "coverage",
+        "status": "VERIFIED",
+        "verified_value": "$500,000.00",
+        "document_value": "$500,000.00",
+        "requested_value": "$500,000.00",
+        "ui_value": null,
+        "derived_value": null,
+        "detail": null,
+        "reason": "Carrier document face amount matches the requested coverage.",
+        "evidence": [
+          {
+            "source": "document",
+            "locator": "C004.pdf#page=1",
+            "raw_text": "Face Amount: $500,000.00",
+            "page": 1,
+            "bbox": [
+              78.0,
+              162.07,
+              198.63,
+              172.07
+            ],
+            "doc_sha256": "f724f5fbbb50831d7f68ef0bb9d35aa1764eb50f3767ed03f7aaaa890ed0a738",
+            "method": "label-anchor-v1",
+            "role": null
+          },
+          {
+            "source": "quote_request",
+            "locator": "quote_requests.json[C004].requested_coverage",
+            "raw_text": "500000",
+            "page": null,
+            "bbox": null,
+            "doc_sha256": null,
+            "method": "json-field",
+            "role": null
+          }
+        ],
+        "notes": [
+          {
+            "tone": "ok",
+            "title": "Verified from the carrier document",
+            "text": "Page 1: \u201cFace Amount: $500,000.00\u201d. Source of truth for the coverage.",
+            "targets": [
+              0
+            ]
+          },
+          {
+            "tone": "ok",
+            "title": "Matches the API payload",
+            "text": "requested_coverage: 500000 agrees with the carrier document.",
+            "targets": [
+              1
+            ]
+          }
+        ]
+      },
+      {
+        "field": "premium",
+        "status": "VERIFIED",
+        "verified_value": "$89.00 MONTHLY",
+        "document_value": "$89.00 MONTHLY",
+        "requested_value": null,
+        "ui_value": "$89.00",
+        "derived_value": null,
+        "detail": null,
+        "reason": "Carrier document base premium matches the UI premium.",
+        "evidence": [
+          {
+            "source": "document",
+            "locator": "C004.pdf#page=1",
+            "raw_text": "Premium: $89.00 MONTHLY",
+            "page": 1,
+            "bbox": [
+              78.0,
+              180.07,
+              205.81,
+              190.07
+            ],
+            "doc_sha256": "f724f5fbbb50831d7f68ef0bb9d35aa1764eb50f3767ed03f7aaaa890ed0a738",
+            "method": "label-anchor-v1",
+            "role": "base"
+          },
+          {
+            "source": "quote_request",
+            "locator": "quote_requests.json[C004].ui_premium",
+            "raw_text": "89.0",
+            "page": null,
+            "bbox": null,
+            "doc_sha256": null,
+            "method": "json-field",
+            "role": null
+          }
+        ],
+        "notes": [
+          {
+            "tone": "ok",
+            "title": "Verified from the carrier document",
+            "text": "Page 1: \u201cPremium: $89.00 MONTHLY\u201d. Source of truth for the premium.",
+            "targets": [
+              0
+            ]
+          },
+          {
+            "tone": "ok",
+            "title": "Matches the API payload",
+            "text": "ui_premium: 89.0 agrees with the carrier document.",
+            "targets": [
+              1
+            ]
+          }
+        ]
+      }
+    ],
+    "checks": [
+      {
+        "layer": "L1",
+        "name": "Source authority",
+        "tool": "Deterministic document classifier: required positive markers; a disclaimer beats any title",
+        "status": "pass",
+        "detail": "Title \"Carrier Illustration\" identifies an issued carrier illustration"
+      },
+      {
+        "layer": "L2",
+        "name": "Extraction + provenance",
+        "tool": "pdfplumber text lines \u00b7 label-anchored regex \u00b7 every candidate kept with page, bbox, sha256",
+        "status": "pass",
+        "detail": "4/4 fields located \u00b7 4 candidate lines"
+      },
+      {
+        "layer": "L3",
+        "name": "Semantic roles",
+        "tool": "Label \u2192 role taxonomy (base / optional rider / unknown); unknown is never guessed",
+        "status": "pass",
+        "detail": "One premium line, role: base"
+      },
+      {
+        "layer": "L4",
+        "name": "Normalization",
+        "tool": "Decimal money \u00b7 payment-mode conversion (labeled as derived) \u00b7 accent/case-insensitive names",
+        "status": "pass",
+        "detail": "No conversion needed"
+      },
+      {
+        "layer": "L5",
+        "name": "Cross-source reconciliation",
+        "tool": "Authority order doc > request > UI \u00b7 $0.01 money tolerance \u00b7 name similarity \u2265 0.92 \u00b7 placeholder list",
+        "status": "pass",
+        "detail": "All claims agree with the carrier document"
+      },
+      {
+        "layer": "L6",
+        "name": "Plausibility",
+        "tool": "Domain bounds: face \u2265 $10,000.00 \u00b7 annual premium \u2264 10% of face",
+        "status": "pass",
+        "detail": "Within bounds"
+      },
+      {
+        "layer": "L7",
+        "name": "LLM adjudication",
+        "tool": "Claude structured output + verbatim-quote grounding check; only for what L2\u2013L3 can't resolve",
+        "status": "skip",
+        "detail": "Not needed: every label and role was recognized deterministically (zero LLM cost)"
+      }
+    ],
+    "next_action": "Safe to present to the client and to use for the application.",
+    "client_safe_summary": {
+      "client_name": "Sara Lopez",
+      "carrier": "Northstar Life",
+      "coverage": "$500,000.00",
+      "premium": "$89.00 MONTHLY",
+      "source_document_sha256": "f724f5fbbb50831d7f68ef0bb9d35aa1764eb50f3767ed03f7aaaa890ed0a738"
+    },
+    "rules_version": "rules-2026-09-30.2",
+    "extractor_version": "label-anchor-v1",
+    "request": {
+      "case_id": "C004",
+      "requested_name": "Sara Lopez",
+      "requested_coverage": 500000,
+      "ui_premium": 89.0
+    },
+    "document_pages": [
+      {
+        "page": 1,
+        "box": [
+          42.0,
+          45.73,
+          420.02,
+          226.07
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "C005",
+    "status": "VERIFIED",
+    "document_type": "ISSUED_ILLUSTRATION",
+    "document_file": "C005.pdf",
+    "document_sha256": "439b592f087b7b44fa41c7ed87ad9460e68aedbf5ef4890b0a3e313715628590",
+    "fields": [
+      {
+        "field": "client_name",
+        "status": "VERIFIED",
+        "verified_value": "David Cruz",
+        "document_value": "David Cruz",
+        "requested_value": "David Cruz",
+        "ui_value": null,
+        "derived_value": null,
+        "detail": null,
+        "reason": "Document applicant matches the requested client (similarity 1.00).",
+        "evidence": [
+          {
+            "source": "document",
+            "locator": "C005.pdf#page=1",
+            "raw_text": "Applicant: David Cruz",
+            "page": 1,
+            "bbox": [
+              78.0,
+              126.07,
+              174.14,
+              136.07
+            ],
+            "doc_sha256": "439b592f087b7b44fa41c7ed87ad9460e68aedbf5ef4890b0a3e313715628590",
+            "method": "label-anchor-v1",
+            "role": null
+          },
+          {
+            "source": "quote_request",
+            "locator": "quote_requests.json[C005].requested_name",
+            "raw_text": "David Cruz",
+            "page": null,
+            "bbox": null,
+            "doc_sha256": null,
+            "method": "json-field",
+            "role": null
+          }
+        ],
+        "notes": [
+          {
+            "tone": "ok",
+            "title": "Verified from the carrier document",
+            "text": "Page 1: \u201cApplicant: David Cruz\u201d. Source of truth for the client.",
+            "targets": [
+              0
+            ]
+          },
+          {
+            "tone": "ok",
+            "title": "Matches the API payload",
+            "text": "requested_name: David Cruz agrees with the carrier document.",
+            "targets": [
+              1
+            ]
+          }
+        ]
+      },
+      {
+        "field": "carrier",
+        "status": "VERIFIED",
+        "verified_value": "Heritage Mutual",
+        "document_value": "Heritage Mutual",
+        "requested_value": null,
+        "ui_value": null,
+        "derived_value": null,
+        "detail": null,
+        "reason": "Taken from the carrier document (the quote request has no carrier to cross-check).",
+        "evidence": [
+          {
+            "source": "document",
+            "locator": "C005.pdf#page=1",
+            "raw_text": "Carrier: Heritage Mutual",
+            "page": 1,
+            "bbox": [
+              78.0,
+              144.07,
+              184.69,
+              154.07
+            ],
+            "doc_sha256": "439b592f087b7b44fa41c7ed87ad9460e68aedbf5ef4890b0a3e313715628590",
+            "method": "label-anchor-v1",
+            "role": null
+          }
+        ],
+        "notes": [
+          {
+            "tone": "ok",
+            "title": "Verified from the carrier document",
+            "text": "Page 1: \u201cCarrier: Heritage Mutual\u201d. Source of truth for the carrier.",
+            "targets": [
+              0
+            ]
+          },
+          {
+            "tone": "info",
+            "title": "Single source",
+            "text": "The quote request has no carrier field, so it can only come from the carrier document.",
+            "targets": [
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "field": "coverage",
+        "status": "VERIFIED",
+        "verified_value": "$200,000.00",
+        "document_value": "$200,000.00",
+        "requested_value": "$200,000.00",
+        "ui_value": null,
+        "derived_value": null,
+        "detail": null,
+        "reason": "Carrier document face amount matches the requested coverage.",
+        "evidence": [
+          {
+            "source": "document",
+            "locator": "C005.pdf#page=1",
+            "raw_text": "Face Amount: $200,000.00",
+            "page": 1,
+            "bbox": [
+              78.0,
+              162.07,
+              198.63,
+              172.07
+            ],
+            "doc_sha256": "439b592f087b7b44fa41c7ed87ad9460e68aedbf5ef4890b0a3e313715628590",
+            "method": "label-anchor-v1",
+            "role": null
+          },
+          {
+            "source": "quote_request",
+            "locator": "quote_requests.json[C005].requested_coverage",
+            "raw_text": "200000",
+            "page": null,
+            "bbox": null,
+            "doc_sha256": null,
+            "method": "json-field",
+            "role": null
+          }
+        ],
+        "notes": [
+          {
+            "tone": "ok",
+            "title": "Verified from the carrier document",
+            "text": "Page 1: \u201cFace Amount: $200,000.00\u201d. Source of truth for the coverage.",
+            "targets": [
+              0
+            ]
+          },
+          {
+            "tone": "ok",
+            "title": "Matches the API payload",
+            "text": "requested_coverage: 200000 agrees with the carrier document.",
+            "targets": [
+              1
+            ]
+          }
+        ]
+      },
+      {
+        "field": "premium",
+        "status": "VERIFIED",
+        "verified_value": "$58.00 MONTHLY",
+        "document_value": "$58.00 MONTHLY",
+        "requested_value": null,
+        "ui_value": "$58.00",
+        "derived_value": null,
+        "detail": "base premium \u00b7 optional rider $73.00 MONTHLY excluded",
+        "reason": "Carrier document base premium matches the UI premium. The document also offers $73.00 MONTHLY with an optional rider; that is an add-on, not the policy premium, and the quote does not elect it.",
+        "evidence": [
+          {
+            "source": "document",
+            "locator": "C005.pdf#page=1",
+            "raw_text": "Premium: $58.00 MONTHLY",
+            "page": 1,
+            "bbox": [
+              78.0,
+              180.07,
+              205.81,
+              190.07
+            ],
+            "doc_sha256": "439b592f087b7b44fa41c7ed87ad9460e68aedbf5ef4890b0a3e313715628590",
+            "method": "label-anchor-v1",
+            "role": "base"
+          },
+          {
+            "source": "document",
+            "locator": "C005.pdf#page=1",
+            "raw_text": "Base Premium: $58.00 MONTHLY",
+            "page": 1,
+            "bbox": [
+              78.0,
+              198.07,
+              231.38,
+              208.07
+            ],
+            "doc_sha256": "439b592f087b7b44fa41c7ed87ad9460e68aedbf5ef4890b0a3e313715628590",
+            "method": "label-anchor-v1",
+            "role": "base"
+          },
+          {
+            "source": "document",
+            "locator": "C005.pdf#page=1",
+            "raw_text": "Premium with Optional Rider: $73.00 MONTHLY",
+            "page": 1,
+            "bbox": [
+              78.0,
+              216.07,
+              293.06,
+              226.07
+            ],
+            "doc_sha256": "439b592f087b7b44fa41c7ed87ad9460e68aedbf5ef4890b0a3e313715628590",
+            "method": "label-anchor-v1",
+            "role": "optional_rider"
+          },
+          {
+            "source": "quote_request",
+            "locator": "quote_requests.json[C005].ui_premium",
+            "raw_text": "58.0",
+            "page": null,
+            "bbox": null,
+            "doc_sha256": null,
+            "method": "json-field",
+            "role": null
+          }
+        ],
+        "notes": [
+          {
+            "tone": "ok",
+            "title": "Verified base premium",
+            "text": "Page 1: \u201cPremium: $58.00 MONTHLY\u201d and \u201cBase Premium: $58.00 MONTHLY\u201d. Source of truth for the premium.",
+            "targets": [
+              0,
+              1
+            ]
+          },
+          {
+            "tone": "info",
+            "title": "Optional rider premium: excluded",
+            "text": "\u201cPremium with Optional Rider: $73.00 MONTHLY\u201d is an add-on option, not the policy premium. The quote does not elect the rider, so it is kept as an alternative and not presented as the premium.",
+            "targets": [
+              2
+            ]
+          },
+          {
+            "tone": "ok",
+            "title": "Matches the API payload",
+            "text": "ui_premium: 58.0 agrees with the carrier document.",
+            "targets": [
+              3
+            ]
+          }
+        ]
+      }
+    ],
+    "checks": [
+      {
+        "layer": "L1",
+        "name": "Source authority",
+        "tool": "Deterministic document classifier: required positive markers; a disclaimer beats any title",
+        "status": "pass",
+        "detail": "Title \"Carrier Illustration\" identifies an issued carrier illustration"
+      },
+      {
+        "layer": "L2",
+        "name": "Extraction + provenance",
+        "tool": "pdfplumber text lines \u00b7 label-anchored regex \u00b7 every candidate kept with page, bbox, sha256",
+        "status": "pass",
+        "detail": "4/4 fields located \u00b7 6 candidate lines"
+      },
+      {
+        "layer": "L3",
+        "name": "Semantic roles",
+        "tool": "Label \u2192 role taxonomy (base / optional rider / unknown); unknown is never guessed",
+        "status": "pass",
+        "detail": "Premium roles resolved: base premium \u00b7 optional rider $73.00 MONTHLY excluded"
+      },
+      {
+        "layer": "L4",
+        "name": "Normalization",
+        "tool": "Decimal money \u00b7 payment-mode conversion (labeled as derived) \u00b7 accent/case-insensitive names",
+        "status": "pass",
+        "detail": "No conversion needed"
+      },
+      {
+        "layer": "L5",
+        "name": "Cross-source reconciliation",
+        "tool": "Authority order doc > request > UI \u00b7 $0.01 money tolerance \u00b7 name similarity \u2265 0.92 \u00b7 placeholder list",
+        "status": "pass",
+        "detail": "All claims agree with the carrier document"
+      },
+      {
+        "layer": "L6",
+        "name": "Plausibility",
+        "tool": "Domain bounds: face \u2265 $10,000.00 \u00b7 annual premium \u2264 10% of face",
+        "status": "pass",
+        "detail": "Within bounds"
+      },
+      {
+        "layer": "L7",
+        "name": "LLM adjudication",
+        "tool": "Claude structured output + verbatim-quote grounding check; only for what L2\u2013L3 can't resolve",
+        "status": "skip",
+        "detail": "Not needed: every label and role was recognized deterministically (zero LLM cost)"
+      }
+    ],
+    "next_action": "Safe to present to the client and to use for the application.",
+    "client_safe_summary": {
+      "client_name": "David Cruz",
+      "carrier": "Heritage Mutual",
+      "coverage": "$200,000.00",
+      "premium": "$58.00 MONTHLY",
+      "source_document_sha256": "439b592f087b7b44fa41c7ed87ad9460e68aedbf5ef4890b0a3e313715628590"
+    },
+    "rules_version": "rules-2026-09-30.2",
+    "extractor_version": "label-anchor-v1",
+    "request": {
+      "case_id": "C005",
+      "requested_name": "David Cruz",
+      "requested_coverage": 200000,
+      "ui_premium": 58.0
+    },
+    "document_pages": [
+      {
+        "page": 1,
+        "box": [
+          42.0,
+          45.73,
+          420.02,
+          262.07
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "C006",
+    "status": "BLOCKED",
+    "document_type": "PORTAL_PREVIEW",
+    "document_file": "C006.pdf",
+    "document_sha256": "0b1accc54c8452de19208a8985a32183ddea81bb5e4c5e0da17bc81e980ddaf0",
+    "fields": [
+      {
+        "field": "client_name",
+        "status": "UNVERIFIABLE_SOURCE",
+        "verified_value": null,
+        "document_value": "Elena Torres",
+        "requested_value": "Elena Torres",
+        "ui_value": null,
+        "derived_value": null,
+        "detail": null,
+        "reason": "Non-authoritative marker found: \"Portal Print View\". Reads Elena Torres, but only an issued carrier document can verify it. (Would have been: VERIFIED)",
+        "evidence": [
+          {
+            "source": "document",
+            "locator": "C006.pdf#page=1",
+            "raw_text": "Applicant: Elena Torres",
+            "page": 1,
+            "bbox": [
+              78.0,
+              126.07,
+              181.93,
+              136.07
+            ],
+            "doc_sha256": "0b1accc54c8452de19208a8985a32183ddea81bb5e4c5e0da17bc81e980ddaf0",
+            "method": "label-anchor-v1",
+            "role": null
+          },
+          {
+            "source": "quote_request",
+            "locator": "quote_requests.json[C006].requested_name",
+            "raw_text": "Elena Torres",
+            "page": null,
+            "bbox": null,
+            "doc_sha256": null,
+            "method": "json-field",
+            "role": null
+          },
+          {
+            "source": "document",
+            "locator": "C006.pdf#page=1",
+            "raw_text": "Portal Print View",
+            "page": 1,
+            "bbox": [
+              234.48,
+              81.73,
+              377.52,
+              99.73
+            ],
+            "doc_sha256": "0b1accc54c8452de19208a8985a32183ddea81bb5e4c5e0da17bc81e980ddaf0",
+            "method": "doc-classifier-v1",
+            "role": null
+          }
+        ],
+        "notes": [
+          {
+            "tone": "bad",
+            "title": "Not an issued carrier document",
+            "text": "\u201cPortal Print View\u201d. An interface preview has no authority over money or coverage.",
+            "targets": [
+              2
+            ]
+          },
+          {
+            "tone": "info",
+            "title": "Readable, but not authoritative",
+            "text": "\u201cApplicant: Elena Torres\u201d comes from a portal view, not the carrier's document.",
+            "targets": [
+              0
+            ]
+          },
+          {
+            "tone": "info",
+            "title": "Agreement is not verification",
+            "text": "requested_name: Elena Torres. Matching values from non-authoritative sources prove nothing.",
+            "targets": [
+              1
+            ]
+          },
+          {
+            "tone": "bad",
+            "title": "Not verified: no authoritative source",
+            "text": "Only an issued carrier document can verify this. Download the official illustration.",
+            "targets": [
+              2,
+              0,
+              1
+            ]
+          }
+        ]
+      },
+      {
+        "field": "carrier",
+        "status": "UNVERIFIABLE_SOURCE",
+        "verified_value": null,
+        "document_value": "Summit Assurance",
+        "requested_value": null,
+        "ui_value": null,
+        "derived_value": null,
+        "detail": null,
+        "reason": "Non-authoritative marker found: \"Portal Print View\". Reads Summit Assurance, but only an issued carrier document can verify it. (Would have been: VERIFIED)",
+        "evidence": [
+          {
+            "source": "document",
+            "locator": "C006.pdf#page=1",
+            "raw_text": "Carrier: Summit Assurance",
+            "page": 1,
+            "bbox": [
+              78.0,
+              144.07,
+              198.02,
+              154.07
+            ],
+            "doc_sha256": "0b1accc54c8452de19208a8985a32183ddea81bb5e4c5e0da17bc81e980ddaf0",
+            "method": "label-anchor-v1",
+            "role": null
+          },
+          {
+            "source": "document",
+            "locator": "C006.pdf#page=1",
+            "raw_text": "Portal Print View",
+            "page": 1,
+            "bbox": [
+              234.48,
+              81.73,
+              377.52,
+              99.73
+            ],
+            "doc_sha256": "0b1accc54c8452de19208a8985a32183ddea81bb5e4c5e0da17bc81e980ddaf0",
+            "method": "doc-classifier-v1",
+            "role": null
+          }
+        ],
+        "notes": [
+          {
+            "tone": "bad",
+            "title": "Not an issued carrier document",
+            "text": "\u201cPortal Print View\u201d. An interface preview has no authority over money or coverage.",
+            "targets": [
+              1
+            ]
+          },
+          {
+            "tone": "info",
+            "title": "Readable, but not authoritative",
+            "text": "\u201cCarrier: Summit Assurance\u201d comes from a portal view, not the carrier's document.",
+            "targets": [
+              0
+            ]
+          },
+          {
+            "tone": "bad",
+            "title": "Not verified: no authoritative source",
+            "text": "Only an issued carrier document can verify this. Download the official illustration.",
+            "targets": [
+              1,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "field": "coverage",
+        "status": "UNVERIFIABLE_SOURCE",
+        "verified_value": null,
+        "document_value": "$300,000.00",
+        "requested_value": "$300,000.00",
+        "ui_value": null,
+        "derived_value": null,
+        "detail": null,
+        "reason": "Non-authoritative marker found: \"Portal Print View\". Reads $300,000.00, but only an issued carrier document can verify it. (Would have been: VERIFIED)",
+        "evidence": [
+          {
+            "source": "document",
+            "locator": "C006.pdf#page=1",
+            "raw_text": "Face Amount: $300,000.00",
+            "page": 1,
+            "bbox": [
+              78.0,
+              162.07,
+              198.63,
+              172.07
+            ],
+            "doc_sha256": "0b1accc54c8452de19208a8985a32183ddea81bb5e4c5e0da17bc81e980ddaf0",
+            "method": "label-anchor-v1",
+            "role": null
+          },
+          {
+            "source": "quote_request",
+            "locator": "quote_requests.json[C006].requested_coverage",
+            "raw_text": "300000",
+            "page": null,
+            "bbox": null,
+            "doc_sha256": null,
+            "method": "json-field",
+            "role": null
+          },
+          {
+            "source": "document",
+            "locator": "C006.pdf#page=1",
+            "raw_text": "Portal Print View",
+            "page": 1,
+            "bbox": [
+              234.48,
+              81.73,
+              377.52,
+              99.73
+            ],
+            "doc_sha256": "0b1accc54c8452de19208a8985a32183ddea81bb5e4c5e0da17bc81e980ddaf0",
+            "method": "doc-classifier-v1",
+            "role": null
+          }
+        ],
+        "notes": [
+          {
+            "tone": "bad",
+            "title": "Not an issued carrier document",
+            "text": "\u201cPortal Print View\u201d. An interface preview has no authority over money or coverage.",
+            "targets": [
+              2
+            ]
+          },
+          {
+            "tone": "info",
+            "title": "Readable, but not authoritative",
+            "text": "\u201cFace Amount: $300,000.00\u201d comes from a portal view, not the carrier's document.",
+            "targets": [
+              0
+            ]
+          },
+          {
+            "tone": "info",
+            "title": "Agreement is not verification",
+            "text": "requested_coverage: 300000. Matching values from non-authoritative sources prove nothing.",
+            "targets": [
+              1
+            ]
+          },
+          {
+            "tone": "bad",
+            "title": "Not verified: no authoritative source",
+            "text": "Only an issued carrier document can verify this. Download the official illustration.",
+            "targets": [
+              2,
+              0,
+              1
+            ]
+          }
+        ]
+      },
+      {
+        "field": "premium",
+        "status": "UNVERIFIABLE_SOURCE",
+        "verified_value": null,
+        "document_value": "$66.00 MONTHLY",
+        "requested_value": null,
+        "ui_value": "$66.00",
+        "derived_value": null,
+        "detail": null,
+        "reason": "Non-authoritative marker found: \"Portal Print View\". Reads $66.00 MONTHLY, but only an issued carrier document can verify it. (Would have been: VERIFIED)",
+        "evidence": [
+          {
+            "source": "document",
+            "locator": "C006.pdf#page=1",
+            "raw_text": "Premium: $66.00 MONTHLY",
+            "page": 1,
+            "bbox": [
+              78.0,
+              180.07,
+              205.81,
+              190.07
+            ],
+            "doc_sha256": "0b1accc54c8452de19208a8985a32183ddea81bb5e4c5e0da17bc81e980ddaf0",
+            "method": "label-anchor-v1",
+            "role": "base"
+          },
+          {
+            "source": "quote_request",
+            "locator": "quote_requests.json[C006].ui_premium",
+            "raw_text": "66.0",
+            "page": null,
+            "bbox": null,
+            "doc_sha256": null,
+            "method": "json-field",
+            "role": null
+          },
+          {
+            "source": "document",
+            "locator": "C006.pdf#page=1",
+            "raw_text": "Portal Print View",
+            "page": 1,
+            "bbox": [
+              234.48,
+              81.73,
+              377.52,
+              99.73
+            ],
+            "doc_sha256": "0b1accc54c8452de19208a8985a32183ddea81bb5e4c5e0da17bc81e980ddaf0",
+            "method": "doc-classifier-v1",
+            "role": null
+          }
+        ],
+        "notes": [
+          {
+            "tone": "bad",
+            "title": "Not an issued carrier document",
+            "text": "\u201cPortal Print View\u201d. An interface preview has no authority over money or coverage.",
+            "targets": [
+              2
+            ]
+          },
+          {
+            "tone": "info",
+            "title": "Readable, but not authoritative",
+            "text": "\u201cPremium: $66.00 MONTHLY\u201d comes from a portal view, not the carrier's document.",
+            "targets": [
+              0
+            ]
+          },
+          {
+            "tone": "info",
+            "title": "Agreement is not verification",
+            "text": "ui_premium: 66.0. Matching values from non-authoritative sources prove nothing.",
+            "targets": [
+              1
+            ]
+          },
+          {
+            "tone": "bad",
+            "title": "Not verified: no authoritative source",
+            "text": "Only an issued carrier document can verify this. Download the official illustration.",
+            "targets": [
+              2,
+              0,
+              1
+            ]
+          }
+        ]
+      }
+    ],
+    "checks": [
+      {
+        "layer": "L1",
+        "name": "Source authority",
+        "tool": "Deterministic document classifier: required positive markers; a disclaimer beats any title",
+        "status": "fail",
+        "detail": "Non-authoritative marker found: \"Portal Print View\""
+      },
+      {
+        "layer": "L2",
+        "name": "Extraction + provenance",
+        "tool": "pdfplumber text lines \u00b7 label-anchored regex \u00b7 every candidate kept with page, bbox, sha256",
+        "status": "pass",
+        "detail": "4/4 fields located \u00b7 4 candidate lines"
+      },
+      {
+        "layer": "L3",
+        "name": "Semantic roles",
+        "tool": "Label \u2192 role taxonomy (base / optional rider / unknown); unknown is never guessed",
+        "status": "skip",
+        "detail": "Informational only (source not authoritative): One premium line, role: base"
+      },
+      {
+        "layer": "L4",
+        "name": "Normalization",
+        "tool": "Decimal money \u00b7 payment-mode conversion (labeled as derived) \u00b7 accent/case-insensitive names",
+        "status": "skip",
+        "detail": "Informational only (source not authoritative): No conversion needed"
+      },
+      {
+        "layer": "L5",
+        "name": "Cross-source reconciliation",
+        "tool": "Authority order doc > request > UI \u00b7 $0.01 money tolerance \u00b7 name similarity \u2265 0.92 \u00b7 placeholder list",
+        "status": "skip",
+        "detail": "Informational only (source not authoritative): All claims agree with the carrier document"
+      },
+      {
+        "layer": "L6",
+        "name": "Plausibility",
+        "tool": "Domain bounds: face \u2265 $10,000.00 \u00b7 annual premium \u2264 10% of face",
+        "status": "skip",
+        "detail": "Informational only (source not authoritative): Within bounds"
+      },
+      {
+        "layer": "L7",
+        "name": "LLM adjudication",
+        "tool": "Claude structured output + verbatim-quote grounding check; only for what L2\u2013L3 can't resolve",
+        "status": "skip",
+        "detail": "Not applicable: an LLM cannot grant authority to a non-authoritative document"
+      }
+    ],
+    "next_action": "Do not present these numbers. This file is not an issued carrier illustration (PORTAL_PREVIEW). Run/download the official illustration from the carrier and re-verify.",
+    "client_safe_summary": null,
+    "rules_version": "rules-2026-09-30.2",
+    "extractor_version": "label-anchor-v1",
+    "request": {
+      "case_id": "C006",
+      "requested_name": "Elena Torres",
+      "requested_coverage": 300000,
+      "ui_premium": 66.0
+    },
+    "document_pages": [
+      {
+        "page": 1,
+        "box": [
+          42.0,
+          45.73,
+          437.46,
+          244.07
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "case_id": "C001",
+    "requested_name": "Ana Rivera",
+    "requested_coverage": 450000,
+    "ui_premium": 62.0
+  },
+  {
+    "case_id": "C002",
+    "requested_name": "Marco Diaz",
+    "requested_coverage": 250000,
+    "ui_premium": 47.5
+  },
+  {
+    "case_id": "C003",
+    "requested_name": "Juan Perez",
+    "requested_coverage": 100000,
+    "ui_premium": 60.0
+  },
+  {
+    "case_id": "C004",
+    "requested_name": "Sara Lopez",
+    "requested_coverage": 500000,
+    "ui_premium": 89.0
+  },
+  {
+    "case_id": "C005",
+    "requested_name": "David Cruz",
+    "requested_coverage": 200000,
+    "ui_premium": 58.0
+  },
+  {
+    "case_id": "C006",
+    "requested_name": "Elena Torres",
+    "requested_coverage": 300000,
+    "ui_premium": 66.0
+  }
+]

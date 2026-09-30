@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Carrier Truth</title>
+<style>
+  :root{
+    --bg:#eef2f6;--card:#ffffff;--surface2:#f8fafc;--hover:#f1f5f9;--ink:#0f172a;--text2:#334155;--muted:#64748b;
+    --line:#e2e8f0;--brand:#0e7490;--activebg:#ecfeff;--pagesbg:#cbd5e1;--pagesfocus:#475569;--struck:#94a3b8;
+    --ok:#16a34a;--okbg:#dcfce7;--okline:#86efac;--warn:#d97706;--warntext:#b45309;--warnbg:#fef3c7;--warnline:#fcd34d;
+    --bad:#dc2626;--badbg:#fee2e2;--badline:#fca5a5;--truth:#2563eb;--truthbg:#dbeafe;--info:#64748b;--infobg:#f1f5f9;
+    --shadow:rgba(15,23,42,.08);--ring:#ffffff;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0b1220;--card:#111a2e;--surface2:#16213a;--hover:#1a2742;--ink:#e5e7eb;--text2:#cbd5e1;--muted:#94a3b8;
+      --line:#26324d;--brand:#22d3ee;--activebg:#0f2a36;--pagesbg:#1e293b;--pagesfocus:#020617;--struck:#64748b;
+      --ok:#22c55e;--okbg:rgba(34,197,94,.14);--okline:#166534;--warn:#f59e0b;--warntext:#fbbf24;--warnbg:rgba(245,158,11,.14);--warnline:#92400e;
+      --bad:#f87171;--badbg:rgba(248,113,113,.14);--badline:#991b1b;--truth:#60a5fa;--truthbg:rgba(96,165,250,.15);--info:#94a3b8;--infobg:rgba(148,163,184,.14);
+      --shadow:rgba(0,0,0,.35);--ring:#111a2e;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0b1220;--card:#111a2e;--surface2:#16213a;--hover:#1a2742;--ink:#e5e7eb;--text2:#cbd5e1;--muted:#94a3b8;
+    --line:#26324d;--brand:#22d3ee;--activebg:#0f2a36;--pagesbg:#1e293b;--pagesfocus:#020617;--struck:#64748b;
+    --ok:#22c55e;--okbg:rgba(34,197,94,.14);--okline:#166534;--warn:#f59e0b;--warntext:#fbbf24;--warnbg:rgba(245,158,11,.14);--warnline:#92400e;
+    --bad:#f87171;--badbg:rgba(248,113,113,.14);--badline:#991b1b;--truth:#60a5fa;--truthbg:rgba(96,165,250,.15);--info:#94a3b8;--infobg:rgba(148,163,184,.14);
+    --shadow:rgba(0,0,0,.35);--ring:#111a2e;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font:14px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:var(--bg)}
+  a{color:var(--brand)}
+  header{display:flex;align-items:center;gap:14px;padding:12px 22px;background:var(--card);border-bottom:1px solid var(--line)}
+  header h1{font-size:17px;margin:0}
+  header .sub{color:var(--muted);font-size:12.5px}
+  .rule{margin-left:auto;font-size:12px;color:var(--truth);background:var(--truthbg);padding:6px 11px;border-radius:999px;font-weight:600}
+  .theme{border:1px solid var(--line);background:var(--surface2);color:var(--ink);border-radius:999px;padding:6px 11px;font-size:12px}
+  main{display:grid;grid-template-columns:300px minmax(0,1fr);gap:16px;padding:16px 22px;max-width:1600px;margin:auto}
+  @media(max-width:900px){main{grid-template-columns:1fr;padding:12px 16px}.rule{display:none}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px}
+  h3{font-size:11.5px;margin:0 0 8px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  button{font:inherit;cursor:pointer;color:inherit}
+
+  /* ---- case list ---- */
+  .citem{display:flex;align-items:center;gap:8px;padding:9px 8px;border-radius:10px;cursor:pointer;border:2px solid transparent}
+  .citem:hover{background:var(--hover)}
+  .citem.active{border-color:var(--brand);background:var(--activebg)}
+  .citem .id{font-weight:700;width:40px}
+  .citem .nm{flex:1;color:var(--muted);font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .dots{display:flex;gap:3px}.dots i{width:8px;height:8px;border-radius:50%;display:block}
+  .d-ok{background:var(--ok)}.d-warn{background:var(--warn)}.d-bad{background:var(--bad)}
+  .legend{font-size:11px;color:var(--muted);margin-top:8px;line-height:1.6}
+
+  /* ---- in-app guide ---- */
+  details.guide summary{cursor:pointer;font-weight:700;font-size:13px;list-style:none;display:flex;align-items:center;gap:6px}
+  details.guide summary::before{content:"▸";color:var(--muted);transition:transform .15s}
+  details.guide[open] summary::before{transform:rotate(90deg)}
+  .guide ol,.guide ul{margin:8px 0 0;padding-left:18px;color:var(--text2);font-size:12.5px;line-height:1.55}
+  .guide li{margin-bottom:5px}
+  .guide b{color:var(--ink)}
+
+  /* ---- case frame: the border tells the verdict ---- */
+  .case{border:3px solid var(--line);border-radius:16px;background:var(--card);padding:14px;transition:border-color .2s}
+  .case.VERIFIED{border-color:var(--ok);box-shadow:0 0 0 5px var(--okbg)}
+  .case.NEEDS_REVIEW{border-color:var(--warn);box-shadow:0 0 0 5px var(--warnbg)}
+  .case.BLOCKED{border-color:var(--bad);box-shadow:0 0 0 5px var(--badbg)}
+  .verdict{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .vbadge{display:flex;align-items:center;gap:8px;font-weight:800;font-size:15px;padding:8px 14px;border-radius:12px;letter-spacing:.02em}
+  .vbadge.VERIFIED{background:var(--okbg);color:var(--ok)}
+  .vbadge.NEEDS_REVIEW{background:var(--warnbg);color:var(--warntext)}
+  .vbadge.BLOCKED{background:var(--badbg);color:var(--bad)}
+  .vtitle{font-size:22px;font-weight:800}
+  .vaction{flex:1 1 320px;color:var(--text2);font-size:13.5px}
+  .meta{color:var(--muted);font-size:11.5px;margin-top:6px;word-break:break-all}
+  .chip{font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:999px;white-space:nowrap;letter-spacing:.02em}
+  .t-ok{background:var(--okbg);color:var(--ok)} .t-warn{background:var(--warnbg);color:var(--warntext)}
+  .t-bad{background:var(--badbg);color:var(--bad)} .t-truth{background:var(--truthbg);color:var(--truth)}
+  .t-info{background:var(--infobg);color:var(--info)}
+
+  /* ---- verification pipeline ---- */
+  .pipeline{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;margin-top:12px}
+  @media(max-width:1100px){.pipeline{grid-template-columns:repeat(4,minmax(0,1fr))}}
+  @media(max-width:600px){.pipeline{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  .step{border:1px solid var(--line);border-top:4px solid var(--line);border-radius:9px;padding:6px 8px;background:var(--surface2);font-size:11.5px;min-width:0;cursor:help}
+  .step .sh{display:flex;align-items:center;gap:5px;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .step .sd{color:var(--muted);margin-top:2px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .step.pass{border-top-color:var(--ok)} .step.warn{border-top-color:var(--warn)}
+  .step.fail{border-top-color:var(--bad)} .step.skip{border-top-color:var(--struck);opacity:.8}
+  .step .ic{font-weight:900}.step.pass .ic{color:var(--ok)}.step.warn .ic{color:var(--warn)}.step.fail .ic{color:var(--bad)}.step.skip .ic{color:var(--struck)}
+
+  /* ---- the four fields ---- */
+  .tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:14px 0}
+  @media(max-width:900px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  .tile{text-align:left;border:2px solid var(--line);background:var(--card);border-radius:12px;padding:10px 12px;transition:.15s;position:relative}
+  .tile:hover{transform:translateY(-1px);box-shadow:0 4px 14px var(--shadow)}
+  .tile .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700}
+  .tile .val{font-size:17px;font-weight:800;margin:3px 0 4px;min-height:25px;word-break:break-word;color:var(--ink)}
+  .tile .val.nv{color:var(--struck);text-decoration:line-through;text-decoration-thickness:2px}
+  .tile .qual{font-size:11.5px;color:var(--text2);margin-bottom:6px}
+  .tile .qual.derived{color:var(--warntext)}
+  .tile.k-ok{border-color:var(--okline)}.tile.k-warn{border-color:var(--warnline)}.tile.k-bad{border-color:var(--badline)}
+  .tile.sel{outline:3px solid var(--ink);outline-offset:2px}
+  .tile .hint{position:absolute;right:10px;top:9px;font-size:11px;color:var(--muted)}
+
+  /* ---- stage: document | notes | API payload ---- */
+  .stage{position:relative;display:grid;grid-template-columns:minmax(0,1.6fr) minmax(250px,300px) minmax(0,1fr);gap:26px;align-items:start}
+  @media(max-width:1100px){.stage{grid-template-columns:1fr;gap:14px}.wires{display:none}}
+  .pane{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--card);transition:background .25s}
+  .pane-h{display:flex;align-items:center;gap:8px;padding:9px 12px;border-bottom:1px solid var(--line);background:var(--surface2);font-weight:700;font-size:12.5px;flex-wrap:wrap}
+  .pane-h .sub{font-weight:500;color:var(--muted);font-size:11.5px}
+  .pane-h a{margin-left:auto;font-weight:500;font-size:12px}
+  .pages{padding:14px;background:var(--pagesbg);transition:background .25s}
+  .page{position:relative;box-shadow:0 2px 10px rgba(0,0,0,.25);background:#fff}
+  .page img.base{display:block;width:100%;transition:filter .25s}
+  .hl{position:absolute;border:2.5px solid;border-radius:5px;background-repeat:no-repeat;opacity:0;transform:scale(.97);transition:opacity .2s,transform .2s,box-shadow .2s;pointer-events:none}
+  .stage.focus .hl{opacity:1;transform:none}
+  .hl.glow{box-shadow:0 0 0 5px rgba(255,255,255,.9),0 0 22px 6px currentColor}
+  .badges{position:absolute;right:calc(100% + 5px);top:50%;transform:translateY(-50%);display:flex;gap:3px}
+  .badges b,.nnum{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;color:#fff;font-size:11px;font-weight:800;box-shadow:0 0 0 2px var(--ring)}
+  .json{margin:0;padding:14px 12px;font:13px/1.9 ui-monospace,Consolas,Menlo,monospace;background:#0f172a;color:#e2e8f0;min-height:100%}
+  .jl{position:relative;padding:0 8px;border-radius:6px;border:2px solid transparent;transition:opacity .25s,filter .25s,background .2s}
+  .jl .k{color:#7dd3fc}.jl .s{color:#fca5a5}.jl .n{color:#fde68a}.jl .c{color:#64748b;font-style:italic}
+  .jl .badges{right:6px;left:auto}
+  .stage.focus .pages{background:var(--pagesfocus)}
+  .stage.focus .page img.base{filter:blur(2.5px) brightness(.5) grayscale(.4)}
+  .stage.focus .jl:not(.on){opacity:.22;filter:blur(1.2px)}
+  .jl.on{background:rgba(255,255,255,.08)}
+  .jl.glow{box-shadow:0 0 18px 3px currentColor}
+
+  /* ---- notes ---- */
+  .notes{display:flex;flex-direction:column;gap:12px}
+  .nhead{font-size:12px;color:var(--muted)}
+  .nhead b{color:var(--ink);font-size:14px}
+  .note{background:var(--card);border:1px solid var(--line);border-left:5px solid;border-radius:10px;padding:9px 11px;box-shadow:0 2px 10px var(--shadow);transition:transform .15s,opacity .2s;cursor:default}
+  .note:hover{transform:translateX(2px)}
+  .note .nt{display:flex;gap:7px;align-items:center;font-weight:700;font-size:13px}
+  .note .nx{color:var(--text2);font-size:12.5px;margin-top:4px}
+  .notes.dimming .note:not(.hot){opacity:.35}
+  .empty{border:2px dashed var(--line);border-radius:12px;padding:18px;color:var(--muted);text-align:center}
+  .empty b{display:block;color:var(--ink);font-size:14px;margin-bottom:4px}
+  .fieldlist{margin-top:10px;text-align:left;font-size:12.5px;line-height:1.9}
+
+  svg.wires{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;z-index:5}
+  svg.wires path{fill:none;stroke-width:2.2;transition:opacity .2s,stroke-width .2s}
+  svg.wires path.info{stroke-dasharray:5 5}
+  svg.wires.dimming path:not(.hot),svg.wires.dimming circle:not(.hot){opacity:.12}
+  svg.wires path.hot{stroke-width:3.4}
+
+  .bottom{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+  @media(max-width:900px){.bottom{grid-template-columns:1fr}}
+  pre.small{white-space:pre-wrap;font-size:12px;background:#0f172a;color:#e2e8f0;padding:10px;border-radius:8px;margin:0}
+  .withheld{padding:12px;border-radius:10px;background:var(--badbg);color:var(--bad);font-weight:600}
+  kbd{font:11px ui-monospace,monospace;border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 4px;background:var(--surface2)}
+</style>
+</head>
+<body>
+<header>
+  <div><h1>Carrier Truth</h1><div class="sub">Client · carrier · coverage · premium, verified against the carrier document with provenance</div></div>
+  <div class="rule">Source of truth for money &amp; coverage = issued carrier document</div>
+  <button class="theme" id="theme" title="Toggle light / dark theme">◐ Theme</button>
+</header>
+<main>
+  <aside>
+    <div class="card">
+      <h3>Cases</h3>
+      <div id="list"></div>
+      <div class="legend">Dots: client · carrier · coverage · premium<br>
+        <span class="chip t-ok">verified</span> <span class="chip t-warn">review</span> <span class="chip t-bad">blocked</span></div>
+    </div>
+    <div class="card" style="margin-top:12px">
+      <details class="guide" open>
+        <summary>How to read this demo</summary>
+        <ol>
+          <li><b>Pick a case.</b> The frame color is the verdict: green = verified, amber = needs review, red = blocked.</li>
+          <li><b>The four tiles</b> are what a quote needs before anyone shows it to a client: who (client), with whom (carrier), how much protection (coverage) and how much it costs (premium). A struck-through value is <b>not verified</b>.</li>
+          <li><b>Click a tile to trace it.</b> The carrier document and the API payload dim and blur, and the exact lines the value came from are highlighted.</li>
+          <li><b>Numbered notes</b> explain each source. Lines connect every note to its source; a conflict note connects to <b>both</b> conflicting values. Hover a note to isolate it. <kbd>Esc</kbd> leaves focus mode.</li>
+          <li><b>The pipeline strip</b> shows the 7 verification layers and which one passed or failed. Hover a layer to see the tool behind it.</li>
+        </ol>
+        <ul>
+          <li><b>Rule:</b> money and coverage are only true if they come from an <b>issued</b> carrier document. The request and the UI are claims, never the truth.</li>
+          <li><b>Fail closed:</b> contradiction, ambiguity, placeholder, implausible value or non-authoritative source → nothing is verified and nothing reaches the client.</li>
+        </ul>
+      </details>
+    </div>
+  </aside>
+  <section id="detail"><div class="card">Loading…</div></section>
+</main>
+
+<script>
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const LABEL = {client_name:"Client", carrier:"Carrier", coverage:"Coverage", premium:"Premium"};
+const STATUS_KIND = {VERIFIED:"ok", VERIFIED_NORMALIZED:"ok", AMBIGUOUS:"warn", PLACEHOLDER:"warn",
+                     CONTRADICTED:"bad", UNVERIFIABLE_SOURCE:"bad", IMPLAUSIBLE:"bad", MISSING:"bad"};
+const CASE_ICON = {VERIFIED:"✔", NEEDS_REVIEW:"⚠", BLOCKED:"⛔"};
+const STEP_ICON = {pass:"✓", warn:"!", fail:"✕", skip:"–"};
+let cases = [], cur = null, sel = null, TONE_COLOR = {};
+
+// ---- theme: follows the OS by default; the button forces light/dark and is remembered per browser ----
+function readTones(){
+  const css = getComputedStyle(document.documentElement);
+  TONE_COLOR = Object.fromEntries(["ok","truth","bad","warn","info"].map(k => [k, css.getPropertyValue("--" + k).trim()]));
+}
+function applyTheme(t){
+  if (t) document.documentElement.dataset.theme = t; else delete document.documentElement.dataset.theme;
+  readTones();
+  if (cur) focus();
+}
+(function initTheme(){
+  let saved = null;
+  try { saved = localStorage.getItem("ct-theme"); } catch (e) {}
+  applyTheme(saved);
+  $("#theme").onclick = () => {
+    const dark = getComputedStyle(document.documentElement).getPropertyValue("--bg").trim() === "#0b1220";
+    const next = dark ? "light" : "dark";
+    try { localStorage.setItem("ct-theme", next); } catch (e) {}
+    applyTheme(next);
+  };
+})();
+
+async function load(){
+  cases = await (await fetch("/api/cases")).json();
+  show(cases[0]);
+}
+
+function renderList(){
+  $("#list").innerHTML = cases.map(c => {
+    const name = c.request.requested_name || "";
+    const dots = c.fields.map(f => `<i class="d-${STATUS_KIND[f.status]}" title="${LABEL[f.field]}: ${f.status}"></i>`).join("");
+    const k = {VERIFIED:"ok",NEEDS_REVIEW:"warn",BLOCKED:"bad"}[c.status];
+    return `<div class="citem ${cur && cur.case_id===c.case_id ? "active" : ""}" data-id="${c.case_id}">
+      <span class="id">${c.case_id}</span><span class="nm">${esc(name)}</span>
+      <span class="dots">${dots}</span><span class="chip t-${k}">${c.status.replace("_"," ")}</span></div>`;
+  }).join("");
+  document.querySelectorAll(".citem").forEach(el => el.onclick = () => show(cases.find(c => c.case_id === el.dataset.id)));
+}
+
+function tileValue(f){
+  if (f.verified_value) return {text:f.verified_value, nv:false};
+  if (f.status === "AMBIGUOUS"){
+    const vals = [...new Set(f.evidence.filter(e => e.source==="document").map(e => e.raw_text.split(":").slice(1).join(":").trim()))];
+    return {text: vals.join(" or "), nv:true};
+  }
+  return {text: f.document_value || "—", nv:true};
+}
+
+function show(c){
+  cur = c;
+  // Open on the most interesting field: the first one that is not verified.
+  const firstProblem = c.fields.find(f => !["VERIFIED","VERIFIED_NORMALIZED"].includes(f.status));
+  sel = firstProblem ? firstProblem.field : null;
+  renderList();
+
+  const tiles = c.fields.map(f => {
+    const v = tileValue(f), k = STATUS_KIND[f.status];
+    const qual = f.derived_value ? `<div class="qual derived">↳ ${esc(f.derived_value)}</div>`
+               : f.detail ? `<div class="qual">${esc(f.detail)}</div>` : "";
+    return `<button class="tile k-${k}" data-field="${f.field}">
+      <span class="hint">trace ↗</span>
+      <div class="lbl">${LABEL[f.field]}</div>
+      <div class="val ${v.nv ? "nv" : ""}">${esc(v.text)}</div>${qual}
+      <span class="chip t-${k}">${v.nv ? "NOT VERIFIED · " : ""}${f.status.replaceAll("_"," ")}</span></button>`;
+  }).join("");
+
+  const steps = (c.checks || []).map(L => `<div class="step ${L.status}" title="${esc(L.layer + " · " + L.name + "\nTool: " + L.tool + "\n\n" + L.detail)}">
+      <div class="sh"><span class="ic">${STEP_ICON[L.status]}</span>${L.layer} ${esc(L.name)}</div>
+      <div class="sd">${esc(L.detail)}</div></div>`).join("");
+
+  const pages = c.document_pages.map(p => `<div class="page" data-page="${p.page}">
+      <img class="base" src="/api/documents/${c.case_id}/page/${p.page}.png?box=${p.box.join(",")}&sha=${c.document_sha256.slice(0,12)}" alt="Carrier document page ${p.page}"></div>`).join("");
+
+  const keys = Object.keys(c.request);
+  const jsonLines = ['<div class="jl">{</div>'].concat(keys.map((k, i) => {
+    const v = c.request[k];
+    const val = typeof v === "number" ? `<span class="n">${v}</span>` : `<span class="s">"${esc(v)}"</span>`;
+    return `<div class="jl" data-key="${k}">  <span class="k">"${k}"</span>: ${val}${i < keys.length-1 ? "," : ""}</div>`;
+  })).concat(['<div class="jl">}</div>', '<div class="jl"><span class="c">// no "carrier" field in the payload</span></div>']).join("");
+
+  const docOk = c.document_type === "ISSUED_ILLUSTRATION";
+  $("#detail").innerHTML = `
+  <div class="case ${c.status}">
+    <div class="verdict">
+      <span class="vbadge ${c.status}">${CASE_ICON[c.status]} ${c.status.replace("_"," ")}</span>
+      <span class="vtitle">${c.case_id}</span>
+      <span class="vaction">${esc(c.next_action)}</span>
+    </div>
+    <div class="pipeline" aria-label="Verification pipeline">${steps}</div>
+    <div class="tiles">${tiles}</div>
+    <div class="stage" id="stage">
+      <div class="pane" id="docpane">
+        <div class="pane-h">Carrier document <span class="chip ${docOk ? "t-truth" : "t-bad"}">${docOk ? "ISSUED ILLUSTRATION · source of truth" : c.document_type.replace("_"," ") + " · not authoritative"}</span>
+          <span class="sub">${esc(c.document_file)}</span><a href="/api/documents/${c.case_id}.pdf" target="_blank">open PDF</a></div>
+        <div class="pages">${pages}</div>
+      </div>
+      <div class="notes" id="notes"></div>
+      <div class="pane" id="jsonpane">
+        <div class="pane-h">Quote request · API payload <span class="chip t-info">claims, not truth</span></div>
+        <div class="json">${jsonLines}</div>
+      </div>
+      <svg class="wires" id="wires"></svg>
+    </div>
+    <div class="bottom">
+      <div class="card"><h3>What PBG Live View may show the client</h3>${c.client_safe_summary
+        ? `<pre class="small">${esc(JSON.stringify(c.client_safe_summary, null, 2))}</pre>`
+        : `<div class="withheld">⛔ Withheld: the case is not verified, so nothing is sent to the client.</div>`}</div>
+      <div class="card"><h3>Audit trail</h3><div class="meta" style="margin:0">
+        document sha256 <b>${esc(c.document_sha256)}</b><br>extractor ${esc(c.extractor_version)} · ${esc(c.rules_version)}<br>
+        full evidence: <a href="/api/cases/${c.case_id}" target="_blank">/api/cases/${c.case_id}</a></div></div>
+    </div>
+  </div>`;
+
+  document.querySelectorAll(".tile").forEach(t => t.onclick = () => { sel = sel === t.dataset.field ? null : t.dataset.field; focus(); });
+  document.querySelectorAll(".page img.base").forEach(img => img.onload = () => { layoutHighlights(); drawWires(); });
+  focus();
+}
+
+function focus(){
+  const c = cur, stage = $("#stage");
+  if (!stage) return;
+  document.querySelectorAll(".tile").forEach(t => t.classList.toggle("sel", t.dataset.field === sel));
+  document.querySelectorAll(".hl").forEach(n => n.remove());
+  document.querySelectorAll(".jl").forEach(n => { n.classList.remove("on","glow"); n.style.borderColor = "transparent"; n.style.color = "";
+    n.querySelector(".badges")?.remove(); delete n.dataset.ev; });
+  stage.classList.toggle("focus", !!sel);
+
+  if (!sel){
+    $("#notes").innerHTML = `<div class="empty"><b>Select a field to trace it</b>
+      The document and the API payload dim, and every value that field came from is highlighted and explained.
+      <div class="fieldlist">${c.fields.map(f => `<span class="chip t-${STATUS_KIND[f.status]}">${LABEL[f.field]}</span> ${f.status.replaceAll("_"," ")}`).join("<br>")}</div></div>`;
+    $("#wires").innerHTML = "";
+    return;
+  }
+  const f = c.fields.find(x => x.field === sel);
+  const kind = STATUS_KIND[f.status];
+  // tone per evidence: the note that targets only that item speaks for it
+  const toneOf = i => (f.notes.find(n => n.targets.length === 1 && n.targets[0] === i) || f.notes.find(n => n.targets.includes(i)) || {tone:kind}).tone;
+  const numbersOf = i => f.notes.map((n, k) => n.targets.includes(i) ? k + 1 : null).filter(Boolean);
+  const badge = i => `<span class="badges">${numbersOf(i).map(k => `<b style="background:${TONE_COLOR[f.notes[k-1].tone]}">${k}</b>`).join("")}</span>`;
+
+  f.evidence.forEach((e, i) => {
+    const color = TONE_COLOR[toneOf(i)];
+    if (e.source === "document" && e.bbox){
+      const view = c.document_pages.find(p => p.page === e.page), page = document.querySelector(`.page[data-page="${e.page}"]`);
+      if (!view || !page) return;
+      const [vx0, vy0, vx1, vy1] = view.box, W = vx1 - vx0, H = vy1 - vy0, pad = 4;
+      const hl = document.createElement("div");
+      hl.className = "hl"; hl.dataset.ev = i;
+      Object.assign(hl.style, {left: (e.bbox[0]-pad-vx0)/W*100+"%", top: (e.bbox[1]-pad-vy0)/H*100+"%",
+        width: (e.bbox[2]-e.bbox[0]+2*pad)/W*100+"%", height: (e.bbox[3]-e.bbox[1]+2*pad)/H*100+"%", borderColor: color, color});
+      hl.innerHTML = badge(i);
+      page.appendChild(hl);
+    } else if (e.source === "quote_request"){
+      const key = e.locator.split(".").pop();
+      const line = document.querySelector(`.jl[data-key="${key}"]`);
+      if (!line) return;
+      line.classList.add("on"); line.dataset.ev = i; line.style.borderColor = color; line.style.color = color;
+      line.insertAdjacentHTML("beforeend", badge(i));
+    }
+  });
+
+  $("#notes").innerHTML = `<div class="nhead"><b>${LABEL[f.field]}</b> · <span class="chip t-${kind}">${f.status.replaceAll("_"," ")}</span><br>${esc(f.reason)}</div>` +
+    f.notes.map((n, k) => `<div class="note" data-n="${k}" style="border-left-color:${TONE_COLOR[n.tone]}">
+      <div class="nt"><span class="nnum" style="background:${TONE_COLOR[n.tone]}">${k+1}</span>${esc(n.title)}</div>
+      <div class="nx">${esc(n.text)}</div></div>`).join("");
+  document.querySelectorAll(".note").forEach(el => {
+    el.onmouseenter = () => hot(+el.dataset.n, true);
+    el.onmouseleave = () => hot(null, false);
+  });
+  setTimeout(() => { layoutHighlights(); drawWires(); }, 30);
+}
+
+// Crisp copy of the page inside each highlight, on top of the blurred page.
+function layoutHighlights(){
+  document.querySelectorAll(".page").forEach(page => {
+    const img = page.querySelector("img.base");
+    if (!img || !img.complete) return;
+    page.querySelectorAll(".hl").forEach(hl => {
+      Object.assign(hl.style, {backgroundImage:`url(${img.src})`, backgroundSize:`${img.clientWidth}px ${img.clientHeight}px`,
+        backgroundPosition:`${-hl.offsetLeft - 2.5}px ${-hl.offsetTop - 2.5}px`});
+    });
+  });
+}
+
+function targetEl(i){ return document.querySelector(`.hl[data-ev="${i}"]`) || document.querySelector(`.jl[data-ev="${i}"]`); }
+
+function drawWires(){
+  const svg = $("#wires"), stage = $("#stage");
+  if (!sel || !svg) { if (svg) svg.innerHTML = ""; return; }
+  const f = cur.fields.find(x => x.field === sel), S = stage.getBoundingClientRect();
+  svg.setAttribute("viewBox", `0 0 ${S.width} ${S.height}`);
+  let out = "";
+  f.notes.forEach((n, k) => {
+    const nEl = document.querySelector(`.note[data-n="${k}"]`); if (!nEl) return;
+    const N = nEl.getBoundingClientRect(), color = TONE_COLOR[n.tone];
+    n.targets.forEach(i => {
+      const el = targetEl(i); if (!el) return;
+      const R = el.getBoundingClientRect(), fromDoc = el.classList.contains("hl");
+      const sx = (fromDoc ? R.right : R.left) - S.left, sy = R.top + R.height/2 - S.top;
+      const ex = (fromDoc ? N.left : N.right) - S.left, ey = N.top + Math.min(N.height/2, 22) - S.top;
+      const dx = Math.max(30, Math.abs(ex - sx) / 2) * (fromDoc ? 1 : -1);
+      out += `<path class="${n.tone} w${k}" stroke="${color}" d="M${sx},${sy} C${sx+dx},${sy} ${ex-dx},${ey} ${ex},${ey}"/>
+              <circle class="w${k}" cx="${sx}" cy="${sy}" r="4" fill="${color}"/><circle class="w${k}" cx="${ex}" cy="${ey}" r="3.5" fill="${color}"/>`;
+    });
+  });
+  svg.innerHTML = out;
+}
+
+function hot(k, on){
+  const svg = $("#wires"), notes = $("#notes");
+  svg.classList.toggle("dimming", on); notes.classList.toggle("dimming", on);
+  svg.querySelectorAll(".hot").forEach(x => x.classList.remove("hot"));
+  document.querySelectorAll(".note.hot,.glow").forEach(x => x.classList.remove("hot","glow"));
+  if (!on) return;
+  svg.querySelectorAll(`.w${k}`).forEach(x => x.classList.add("hot"));
+  document.querySelector(`.note[data-n="${k}"]`).classList.add("hot");
+  const f = cur.fields.find(x => x.field === sel);
+  f.notes[k].targets.forEach(i => targetEl(i)?.classList.add("glow"));
+}
+
+window.addEventListener("resize", () => { layoutHighlights(); drawWires(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && sel){ sel = null; focus(); } });
+load();
+</script>
+</body>
+</html>
