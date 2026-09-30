@@ -23,17 +23,19 @@ comes with 35 automated tests.
 
 ## 2. What was your most important technical decision, and why?
 
-Deciding truth by source authority and failing closed, with deterministic rules first and the LLM only as a verified
-fallback.
+**Not letting an LLM decide money.** The challenge encouraged AI tools, and the fastest path would have been to hand
+the PDF to a model and ask for the four fields. I didn't, for money and coverage. A model can be wrong or give a
+different number on each run, it leaves no clear audit trail, and it costs tokens on every page × quote × agent.
 
-C001 and C006 justify it. Majority voting would have accepted $450,000 against the document. In C006 all three sources
-agree, yet none is an issued document. Because these numbers reach the client in Live View and the carrier in the
-submission, a false "verified" costs far more than a "review".
+So the pipeline is **deterministic first**: reproducible, auditable, milliseconds, zero token cost. The LLM is kept
+for what the rules don't recognize, and even then it must return a verbatim quote and page that the code checks
+before any number is accepted: **the LLM proposes, the code verifies.** The refusal is enforced in the data model,
+not the UI, so an unverified value cannot reach Live View.
 
-That is why extraction is deterministic (reproducible, auditable, milliseconds, zero token cost), and why the refusal
-lives in the data model rather than the UI. The LLM only steps in where the rules don't recognize a label. It must
-return a verbatim quote that the code checks before accepting any number: the LLM proposes, the code verifies. This
-also keeps token cost under control at scale.
+The statement only asked to refuse on important contradictions. I extended the refusal to cases that aren't
+contradictions: a non-issued source (C006), a placeholder name (C003), and sources agreeing on an implausible value.
+And I chose to interpret rather than block when meaning is clear: C005's base premium is verified and the rider is
+excluded; C003's annual premium stays the truth, with the monthly figure labeled as derived.
 
 ## 3. What could break if this went to production tomorrow?
 
